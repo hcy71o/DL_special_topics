@@ -1,6 +1,6 @@
 model:
   use_SkipConnect: False #! 현재 사용 불가능: False로만 사용
-  use_BN: True
+  use_BN: False
   use_Dropout: False
   dropout: 0.2
   

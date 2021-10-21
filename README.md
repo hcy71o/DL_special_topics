@@ -28,8 +28,11 @@ train/test accuracy plot이나 최종 test accuracy 등은 json파일에서 불�
 
 ## TODO
 Model C (Depthwise conv) 구현
+
 Scheduler 옵션
+
 Skip connection 옵션 (현재 차원 문제)
+
 체크포인트 기능 구현 (optional)
 
 기타 디버깅 (아직 여러 옵션으로 실험 안돌려봄)
