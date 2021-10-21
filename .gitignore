@@ -1,0 +1,4 @@
+cifar-10-batches-py/
+results/
+data/
+__pycache__/
