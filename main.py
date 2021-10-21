@@ -62,13 +62,6 @@ print('==> Building model..')
 
 net = CNN(args.type).to(device)
 
-# if args.resume:
-#     print('==> Resuming from checkpoint..')
-#     assert os.path.isdir('checkpoint'), 'Error: no checkpoint directory found!'
-#     checkpoint = torch.load('./checkpoint/ckpt.pth')
-#     net.load_state_dict(checkpoint['net'])
-#     best_acc = checkpoint['acc']
-#     start_epoch = checkpoint['epoch']
 
 criterion = nn.CrossEntropyLoss().to(device)
 
@@ -112,6 +105,7 @@ for epoch in range(hp.train.epoch):
                      % (train_loss/(batch_idx+1), 100.*correct/total, correct, total))
     
     train_acc = 100.*correct/total
+    train_loss /= total
 
     train_loss_list.append(train_loss)
     train_acc_list.append(train_acc)
@@ -138,6 +132,7 @@ for epoch in range(hp.train.epoch):
         # Save checkpoint.
     test_acc = 100.*correct/total
 
+    test_loss /= total
     test_loss_list.append(test_loss)
     test_acc_list.append(test_acc)
 
@@ -160,20 +155,3 @@ result['test_acc_graph'] = test_acc_list
 hp['type'] = args.type
 
 save_checkpoint_and_result(hp, result, state)
-
-
-
-    # #TODO model_info 정보를 해쉬로 변환해 파일 이름으로 가지는 param 쳌포인트 파일 만들어야되고 그 안에는 epoch, model params가 있어야함
-    # #TODO 일단 체크포인트 없이 해보자
-    # hp['type'] = args.type
-    # #TODO 이부분이 result인데 train_loss curve라던지 여러가지 추가 가능! or   
-    # state = {
-    #     'net': net.state_dict(),
-    #     'acc': acc,
-    # }
-    # save_checkpoint_result(hp, state)
-
-    # if not os.path.isdir('checkpoint'):
-    #     os.mkdir('checkpoint')
-    # torch.save(state, './checkpoint/ckpt.pth')
-    # best_acc = acc
