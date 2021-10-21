@@ -10,7 +10,10 @@ git clone -b master --single-branch https://github.com/hcyspeech/DL_special_topi
 (bn, dropout, dropout ratio, optimizer, lr, epoch, ....)
 
 ## Training and test
-아래 코드로 training 실행 A, B, C는 1번 문제의 각각 다른 CNN구조 의미 (각각 A.Normal Conv, B.1x1 Conv, C.Deptwise Conv)
+아래 코드로 training 실행 
+
+A, B, C는 1번 문제의 각각 다른 CNN구조 의미 (각각 A.Normal Conv, B.1x1 Conv, C.Deptwise Conv)
+
 현재는 A, B 모델만 사용 가능!
 ```
 python train.py --t A
@@ -18,13 +21,16 @@ python train.py --t B
 ```
 ## Evaluation
 모델 종류 (A, B, C)와 yaml 파일 설정 값에 따른 각각 다른 모델 구조는 6자리 해쉬 값으로 전환되어 각 폴더에 저장
+
 폴더 내부에는 실험결과가 내장 된 json 파일과 파라미터가 저장된 체크포인트 파일 두 가지 파일이 존재
 
-train/test accuracy plot이나 최종 accuracy는 json파일에서 불러와서 시각화
+train/test accuracy plot이나 최종 test accuracy 등은 json파일에서 불러와서 시각화
 
 ## TODO
 Model C (Depthwise conv) 구현
 Scheduler 옵션
 Skip connection 옵션 (현재 차원 문제)
 체크포인트 기능 구현 (optional)
+
+기타 디버깅 (아직 여러 옵션으로 실험 안돌려봄)
 
