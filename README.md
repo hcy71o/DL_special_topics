@@ -1,21 +1,30 @@
 # DL Assignment
-This is for assignment
-## Prepare dataset
-Download CIFAR-10 dataset from the internet by running:
-```
-wget https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz
-tar -xvf cifar-10-python.tar.gz
-```
+1번 문제 참고용
 
-## Training
+## Preparing & Model setting
+1. Git clone
+```
+git clone -b master --single-branch https://github.com/hcyspeech/DL_special_topics.git
+```
+2. config/default.yaml 파일에서 모델 구조와 훈련 관련 하이퍼파라미터 설정가능
+(bn, dropout, dropout ratio, optimizer, lr, epoch, ....)
 
-Training process can be ran by:
+## Training and test
+아래 코드로 training 실행 A, B, C는 1번 문제의 각각 다른 CNN구조 의미 (각각 A.Normal Conv, B.1x1 Conv, C.Deptwise Conv)
+현재는 A, B 모델만 사용 가능!
 ```
-python train.py --config config_vp.json 
+python train.py --t A
+python train.py --t B
 ```
-## Inference
-To generate samples, run the following command:
-```
-python syn.py --step 00900000 
-```
-Feel free to change the step as desired. 
+## Evaluation
+모델 종류 (A, B, C)와 yaml 파일 설정 값에 따른 각각 다른 모델 구조는 6자리 해쉬 값으로 전환되어 각 폴더에 저장
+폴더 내부에는 실험결과가 내장 된 json 파일과 파라미터가 저장된 체크포인트 파일 두 가지 파일이 존재
+
+train/test accuracy plot이나 최종 accuracy는 json파일에서 불러와서 시각화
+
+## TODO
+Model C (Depthwise conv) 구현
+Scheduler 옵션
+Skip connection 옵션 (현재 차원 문제)
+체크포인트 기능 구현 (optional)
+
