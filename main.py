@@ -105,7 +105,7 @@ for epoch in range(hp.train.epoch):
                      % (train_loss/(batch_idx+1), 100.*correct/total, correct, total))
     
     train_acc = 100.*correct/total
-    train_loss /= total
+    train_loss /= len(trainloader)
 
     train_loss_list.append(train_loss)
     train_acc_list.append(train_acc)
@@ -132,7 +132,7 @@ for epoch in range(hp.train.epoch):
         # Save checkpoint.
     test_acc = 100.*correct/total
 
-    test_loss /= total
+    test_loss /= len(testloader)
     test_loss_list.append(test_loss)
     test_acc_list.append(test_acc)
 
