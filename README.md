@@ -7,7 +7,7 @@
 git clone -b master --single-branch https://github.com/hcyspeech/DL_special_topics.git
 ```
 2. config/default.yaml 파일에서 모델 구조와 훈련 관련 하이퍼파라미터 설정가능
-(bn, dropout, dropout ratio, optimizer, lr, epoch, ....)
+(bn, dropout, dropout ratio, optimizer, lr, epoch, weight decay, ....)
 
 ## Training and test
 아래 코드로 training 실행 
@@ -16,8 +16,8 @@ A, B, C는 1번 문제의 각각 다른 CNN구조 의미 (각각 A.Normal Conv, 
 
 현재는 A, B 모델만 사용 가능!
 ```
-python train.py --t A
-python train.py --t B
+python main.py --t A
+python main.py --t B
 ```
 ## Evaluation
 모델 종류 (A, B, C)와 yaml 파일 설정 값에 따른 각각 다른 모델 구조는 6자리 해쉬 값으로 전환되어 각 폴더에 저장
