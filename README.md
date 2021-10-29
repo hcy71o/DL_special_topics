@@ -14,10 +14,10 @@ git clone -b master --single-branch https://github.com/hcyspeech/DL_special_topi
 
 A, B, C는 1번 문제의 각각 다른 CNN구조 의미 (각각 A.Normal Conv, B.1x1 Conv, C.Deptwise Conv)
 
-현재는 A, B 모델만 사용 가능!
 ```
 python main.py --t A
 python main.py --t B
+python main.py --t C
 ```
 ## Evaluation
 모델 종류 (A, B, C)와 yaml 파일 설정 값에 따른 각각 다른 모델 구조는 6자리 해쉬 값으로 전환되어 각 폴더에 저장
@@ -27,8 +27,6 @@ python main.py --t B
 train/test accuracy plot이나 최종 test accuracy 등은 json파일에서 불러와서 시각화
 
 ## TODO
-Model C (Depthwise conv) 구현
-
 Scheduler 옵션
 
 Skip connection 옵션 (현재 차원 문제)
