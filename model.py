@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from omegaconf import OmegaConf
+from torchsummary import summary
 
 hp = OmegaConf.load('./config/default.yaml')
 
@@ -64,6 +65,20 @@ class CNN(nn.Module):
             
             self.stage2.append(nn.MaxPool2d(2, stride = 2, padding = 0))
 
+        if model_char == 'C':
+            self.stage2.append(nn.Conv2d(32, 64, 3, stride = 1, padding = 1, groups = 32))
+            self.stage2.append(nn.Conv2d(64, 64, 1))
+            
+            if hp.model.use_BN:
+                self.stage2.append(nn.BatchNorm2d(64))
+
+            self.stage2.append(nn.ReLU())
+
+            if hp.model.use_Dropout:
+                self.stage2.append(nn.Dropout(hp.model.dropout))
+            
+            self.stage2.append(nn.MaxPool2d(2, stride = 2, padding = 0))    
+
         
         #* Stage 3
         self.stage3 = nn.ModuleList()
@@ -100,6 +115,20 @@ class CNN(nn.Module):
                     self.stage3.append(nn.Dropout(hp.model.dropout))
                 
             self.stage3.append(nn.MaxPool2d(2, stride = 2, padding = 0))
+
+        if model_char == 'C':
+            self.stage3.append(nn.Conv2d(64, 128, 3, stride = 1, padding = 1, groups=64))
+            self.stage3.append(nn.Conv2d(128, 128, 1))
+            
+            if hp.model.use_BN:
+                self.stage3.append(nn.BatchNorm2d(128))
+
+            self.stage3.append(nn.ReLU())
+
+            if hp.model.use_Dropout:
+                self.stage3.append(nn.Dropout(hp.model.dropout))
+            
+            self.stage3.append(nn.MaxPool2d(2, stride = 2, padding = 0))        
         
         self.cnn_stages = [self.stage1, self.stage2, self.stage3]
         
@@ -107,6 +136,8 @@ class CNN(nn.Module):
             self.stage4 = nn.Linear(1152, 500)
         if model_char == 'B':
             self.stage4 = nn.Linear(512, 500)
+        if model_char == 'C':
+            self.stage4 = nn.Linear(1152, 500)
         
         self.stage5 = nn.Linear(500, 10)
 
@@ -132,8 +163,13 @@ class CNN(nn.Module):
 
         return x
 
-def test():
-    net = CNN('A')
-    y = net(torch.randn(1, 3, 32, 32))
-    print(y.size())
+if __name__ == '__main__':
+    
+    hp = OmegaConf.load('./config/default.yaml')
+    device = torch.device('cuda') if torch.cuda.is_available() else cpu
+    net = CNN('A').to(device)
+    
+    summary(net, (3,32,32))
 
+    pytorch_total_params = sum(p.numel() for p in net.parameters() if p.requires_grad)
+    print(pytorch_total_params)

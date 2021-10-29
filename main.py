@@ -11,7 +11,7 @@ import os
 import argparse
 import sys
 
-from model import CNN, test
+from model import CNN
 from utils import progress_bar, save_checkpoint_and_result
 
 from omegaconf import OmegaConf
