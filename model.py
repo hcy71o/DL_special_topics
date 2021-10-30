@@ -167,7 +167,7 @@ if __name__ == '__main__':
     
     hp = OmegaConf.load('./config/default.yaml')
     device = torch.device('cuda') if torch.cuda.is_available() else cpu
-    net = CNN('A').to(device)
+    net = CNN('C').to(device)
     
     summary(net, (3,32,32))
 
