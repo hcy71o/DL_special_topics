@@ -13,7 +13,7 @@ git clone -b master --single-branch https://github.com/hcyspeech/DL_special_topi
 [1번]
 Train model with below codes
 
-A, B, C mean each CNN structures of problem1 (A.Normal Conv, B.1x1 Conv, C.Deptwise Conv)
+A, B, C mean each CNN structure of problem1 (A.Normal Conv, B.1x1 Conv, C.Deptwise Conv)
 
 ```
 python main.py --t A
@@ -30,7 +30,7 @@ python GAN.py
 ## Evaluation
 In problem 1, model type (A,B,C) and configuration or hyperparmeters setting is converted to 6 hash values.
 
-Each model experiment generate different folder.
+Each model experiment generates different folder.
 
 In each folder, there are first json file which has experimental result and second, checkpoint file which save model parameters.
 
